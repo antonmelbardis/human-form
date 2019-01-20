@@ -1,15 +1,15 @@
 <template>
   <section class="container">
     <div v-if="!readyForm">
-      <div style="display: flex; align-items: center;">
+      <div style="display: flex; align-items: center;margin-bottom:15px;">
         <div class="subtitle">
-          I am looking for a home for
-          <span>{{ whatToCover }}</span>
-        </div>
-        <div class="dropdown">
-          <div class="dropbtn" @click="myFunction">
-Dropdown
+I am looking for a home for
 </div>
+        <div class="dropdown">
+          <div v-if="!whatToCover" class="dropbtn-white" @click="myFunction" />
+          <div v-else class="dropbtn" @click="myFunction">
+            <div>{{ whatToCover }}</div>
+          </div>
           <div id="myDropdown" class="dropdown-content">
             <ul class="faq__list">
               <li v-for="question in questions" :key="question.title" class="faq__item">
@@ -24,13 +24,15 @@ Dropdown
           </div>
         </div>
       </div>
-      <div v-if="isKids" style="display: flex; align-items: center;">
-        <div class="subtitle">
-          {{ myOrOur }}
+      <div v-if="isKids" style="display: flex; align-items: center; margin-bottom:15px;">
+        <div class="subtitle" style="display: flex; align-items: center;">
+          <div>{{ myOrOur }}</div>
           <div class="dropdown">
-            <div class="dropbtn" @click="openDropDownKids">
-Dropdown
-</div>
+            <div v-if="!noOfKids" class="dropbtn-white" @click="openDropDownKids" />
+            <div v-else class="dropbtn" @click="openDropDownKids">
+              <div>{{ noOfKids }}</div>
+            </div>
+
             <div id="noOfKids" class="dropdown-content">
               <ul class="faq__list">
                 <li v-for="kid in noOfKidsOptions" :key="kid.no" class="faq__item">
@@ -46,7 +48,6 @@ kid is
 </span>
         </div>
         <div v-if="noOfKids" class="subtitle">
-          {{ noOfKids }}
           <span>{{ noOfKids === '2' ? 'kids' : 'kid' }}</span>
           {{ noOfKids === '2' ? 'are' : 'is' }}
           <span v-if="!showOneOrTwoKids">
@@ -60,7 +61,7 @@ kid is
       </div>
       <div
         v-if="!isKids && whatToCover || setKidsSectionReady"
-        style="display: flex; align-items: center;"
+        style="display: flex; align-items: center ; margin-bottom:25px;"
       >
         <div v-if="isSingle" class="subtitle">
           I earn
@@ -78,7 +79,7 @@ kid is
       </div>
       <div
         v-if="showSubmittedButton"
-        style="display: flex; align-items: center;margin: 0 auto; margin-top: 10px;"
+        style="display: flex; align-items: center;margin: 0 auto; margin-top: 10px; margin-bottom:15px;"
       >
         <div class="button" @click="submit()">
           <div>SUBMIT</div>
@@ -241,6 +242,17 @@ export default {
 </script>
 
 <style>
+.dropbtn-white {
+  height: 45px;
+  width: 130px;
+  /* background-color: white; */
+
+  /* padding: 16px; */
+  font-size: 42px;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
 .button {
   background-color: #35495e; /* Green */
   border: none;
@@ -256,7 +268,8 @@ export default {
   width: 120px;
   height: 45px;
   font-size: 42px;
-
+  font-weight: 300;
+  color: #35495e;
   border: none;
   border-bottom: 5px solid grey;
 }
@@ -280,12 +293,14 @@ export default {
 }
 
 .subtitle {
+  height: 45px;
   font-weight: 300;
   font-size: 42px;
   color: #526488;
   word-spacing: 5px;
-  padding-bottom: 15px;
-  margin-bottom: 0px;
+  /* padding-bottom: 15px; */
+  margin-bottom: 0px !important;
+  border-bottom: 5px solid white;
 }
 
 .links {
@@ -293,21 +308,27 @@ export default {
 }
 /* Dropdown Button */
 .dropbtn {
-  height: 45px;
+  height: 50px;
   /* background-color: white; */
 
-  color: white;
+  color: #526488;
   /* padding: 16px; */
-  font-size: 16px;
+  font-size: 42px;
   border: none;
   cursor: pointer;
+  /* padding-left: 5px;
+  padding-bottom: 2px; */
+  /* margin-left: 5px; */
 }
 
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
+  height: 55px;
   position: relative;
   display: inline-block;
   border-bottom: 5px solid grey;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 /* Dropdown Content (Hidden by Default) */
